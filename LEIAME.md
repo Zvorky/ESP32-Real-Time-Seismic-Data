@@ -14,14 +14,14 @@ Esses dados vitais são transmitidos via um link seguro com comunicação serial
 A transmissão e o processamento precisam ser eficientes e robustos. Pela importância da aplicação, cada recebimento no CPG deve informar a ESR a chegada com sucesso dos dados (ou não). Como é de conhecimento geral, a comunicação serial pode sofrer com alteração de algum bit durante a transmissão. É necessário um protocolo para detecção de erro de transmissão (paridade por exemplo) e um pedido de reenvio em caso de falha.
 
 ## Arquitetura do Sistema
-### ESR (Estação Sismológica Remota – ESP32 #1)
+### [ESR](./esr/src/main.cpp) (Estação Sismológica Remota – ESP32 #1)
 - Gera dados sísmicos simulados como sequências binárias de 7 bits + 1 bit de paridade.
 - Transmite os dados ao CPG via serial (1 dado por segundo).
 - Exibe logs no monitor serial:
     - Data/hora do envio.
     - Dado transmitido (separando o bit de paridade).
     - Confirmação de recebimento ou solicitação de reenvio.
-### CPG (Centro de Processamento Geofísico – ESP32 #2)
+### [CPG](./cpg/src/main.cpp) (Centro de Processamento Geofísico – ESP32 #2)
 - Recebe os dados do ESR.
 - Valida integridade usando o bit de paridade.
 - Em caso de erro (simulação: 1 a cada 20 transmissões), solicita reenvio.
